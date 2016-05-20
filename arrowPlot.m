@@ -1,4 +1,4 @@
-function [  ] = arrowPlot( centers, directions, directionsMin, eigs, eigsMin, startImage )
+function [  ] = arrowPlot( centers, directions, directionsMin, eigs, eigsMin, startImage, numBack )
 %Plot stretch vectors over grape image and
 %save in folder 'Stretch' in current directory
 %Inputs:    centers: 3xn coordiantes of centroids for each triangle

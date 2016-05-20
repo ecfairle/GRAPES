@@ -1,4 +1,5 @@
 function [ centers, eigs, eigsMin, directions, directionsMin ] = saveStretch( Uni,tr,numBack )
+%Calculate stretch over time for each triangle
 
 n = length(tr);
 
@@ -8,7 +9,8 @@ eigsMin = zeros(n,100-numBack-2);
 centers =  zeros(n,2,100-numBack-2);
 directionsMin = zeros(n,2,100-numBack-2);
 
-for i = numBack+2:100
+
+for i = numBack+2:100 
     for j = 1:n
         if numBack ~= 0
             ftest = fliplr(Uni(tr(j,:),1:2,i-numBack));
@@ -21,7 +23,7 @@ for i = numBack+2:100
         [V, D] = eig(A);
         [~, m] = max(sum(D));
         [~, mi] = min(sum(D));
-        centers(j,:,i-numBack-1) = [mean(Uni(tr(j,:),2,i)) , mean(Uni(tr(j,:),1,i))]*2;
+        centers(j,:,i-numBack-1) = [mean(Uni(tr(j,:),2,i)) , mean(Uni(tr(j,:),1,i))];
         directions(j,:,i-numBack-1) = V(:,m)';
         directionsMin(j,:,i-numBack-1) = V(:,mi)';
         if i > numBack + 2
@@ -34,10 +36,10 @@ for i = numBack+2:100
 end
 csvwrite('xMagnitudes(max).csv',eigs);
 csvwrite('xMagnitudes(min).csv',eigsMin);
-csvwrite('yDirections(min)1151.csv',directionsMin(:,2,:));
-csvwrite('xDirections(min)1151.csv',directionsMin(:,1,:));
-csvwrite('xDirections(max)1151.csv',directions(:,1,:));
-csvwrite('yDirections(max)1151.csv',directions(:,2,:));
-csvwrite('rawXPoints1151.csv',Uni(:,2,:));
-csvwrite('rawYPoints1151.csv',Uni(:,1,:));
+csvwrite('yDirections(min).csv',directionsMin(:,2,:));
+csvwrite('xDirections(min).csv',directionsMin(:,1,:));
+csvwrite('xDirections(max).csv',directions(:,1,:));
+csvwrite('yDirections(max).csv',directions(:,2,:));
+csvwrite('rawXPoints.csv',Uni(:,2,:));
+csvwrite('rawYPoints.csv',Uni(:,1,:));
 end
