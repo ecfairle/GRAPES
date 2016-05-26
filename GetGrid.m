@@ -2,10 +2,11 @@ function [] = GetGrid(numBack, startImage, endPicNum, imDir, varargin)
 %%
 %Program Runner -> Run this to generate everything
 %Inputs:    numBack: compare image n to image n - numBack, numBack = 0 means we
-%compare to startImage instead of numBack images back
+%compare to image 1 instead of numBack images back
 %           startImage: first image to plot data for
 %           endPicNum: last image in sequence to consider
-%           imageDir: (string) name of directory where source images are stored
+%           imageDir: (string) path to directory where source images are
+%           stored
 %           GetGrid(...,'plot') to also also make overlayed plots
 %%  
 
@@ -103,7 +104,7 @@ tr = drawLines(mSave(:,:,1));
 Dots = mSave/2;
 
 %determine stretch for each of selected trinagles over time
-[ centers, eigs, eigsMin, directions, directionsMin ] = saveStretch( Dots,tr,numBack );
+[ centers, eigs, eigsMin, directions, directionsMin ] = saveStretch( Dots,tr,numBack, endPicNum );
 if(nargin > 4)
     if(strcmp(varargin{1},'plot'))
         arrowPlot( centers, directions, directionsMin, eigs, eigsMin, startImage, numBack );
